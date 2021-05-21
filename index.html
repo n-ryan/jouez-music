@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Jouez Music</title>
+        <link rel="stylesheet" href="styles.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- <meta name="apple-music-developer-token" content="eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IktMM1o4QlI1MkgifQ.eyJpc3MiOiJXQU44QkRCVlNCIiwiaWF0IjoxNjIxMDM1NTUyLCJleHAiOjE2MzY3NjE2MDB9.vh9Rq2q9VV28w5IrvYGgg_rRxRra6rm4UxrFwXMgbyp2csSJ30SsVrgacV2Nl3IDx51ZKk_BNbuLmRHumqe5QQ">
+        <meta name="apple-music-app-name" content="Jouez Music">
+        <meta name="apple-music-app-build" content="0.9"> -->
+        <script src="https://js-cdn.music.apple.com/musickit/v1/musickit.js"></script>
+    </head>
+    <body>
+        <header>
+            <h1>Jouez Music</h1>
+            <button id="authorize">Sign In to Apple Music</button>
+            <!-- <button id="apple-music-authorize">Sign In</button>
+            <button id="apple-music-unauthorize">Sign Out</button> -->
+        </header>
+
+        <aside>
+            <ul>
+                <li>
+                    <span class="material-icons">library_music</span>
+                    <a>Your Library</a>
+                </li>
+                <li>
+                    <span class="material-icons">search</span>
+                    <a>Search</a>
+                </li>
+                <li>
+                    <span class="material-icons">settings_suggest</span>
+                    <a>Playlist Genius</a>
+                </li>
+            </ul>
+        </aside>
+
+        <main>
+            <h1>Your Library</h1>
+            <button data-apple-music-pause>Pause</button>
+            <button data-apple-music-play>Play</button>
+            <button data-apple-music-skip-to-next-item>Skip Next</button>
+            <button data-apple-music-skip-to-previous-item>Skip Previous</button>
+            <!-- <button data-apple-music-set-queue="pl.da219c87667b4018968b94c4be8bc793">Set Queue to Playlist</button> -->
+            <p data-apple-music-now-playing></p>
+            <!-- <br>
+            <input id="artist-search" placeholder="Search for an artist..."></input>
+            <button id="search">Search</button>
+            <div id="search-results"></div> -->
+            <button id="get-albums">Get Library Albums</button>
+            <div id="library-albums-grid"></div>
+        </main>
+
+        <script src="script.js"></script>
+    </body>
+</html>

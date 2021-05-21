@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@700&display=swap');
+
+html {
+    font-family: 'Public Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    background-color: #F4D6CC;
+    display: grid;
+    grid-template-columns: 200px auto;
+    grid-template-rows: 60px auto;
+    grid-template-areas:
+        "header header"
+        "sidebar main";
+    margin: 0px;
+}
+
+header {
+    grid-area: header;
+    background-color: #7CA5B8;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px;
+    position: fixed;
+    width: 100vw;
+}
+
+header h1 {
+    color: #F4D6CC;
+    margin-bottom: 20px;
+    margin-left: 15px;
+}
+
+header a {
+    background-color: #849324;
+    border: solid 1px #F4D6CC;
+    border-radius: 10px;
+    padding: 7px;
+    margin-right: 10px;
+    text-decoration: none;
+}
+
+aside {
+    grid-area: sidebar;
+    position: fixed;
+    background-color: #3D5467;
+    height: calc(100vh - 78px);
+    width: 200px;
+    margin-top: 78px;
+    color: #849324;
+}
+
+aside ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: -18px;
+}
+
+aside ul li {
+    margin-block: 8px;
+    list-style: none;
+}
+
+main {
+    grid-area: main;
+    margin-top: 78px;
+}
+
+main h1 {
+    margin-left: 0.67em;
+}
+
+#library-albums-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#album-info {
+    display: none;
+}
+
+#album-art {
+    height: 200px;
+    width: 200px;
+}
