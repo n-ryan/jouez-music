@@ -6,11 +6,13 @@ body {
     background-color: #F4D6CC;
     display: grid;
     grid-template-columns: 200px auto;
-    grid-template-rows: 60px auto;
+    grid-template-rows: 60px auto 80px;
     grid-template-areas:
         "header header"
-        "sidebar main";
+        "sidebar main"
+        "player player";
     margin: 0px;
+    height: 100vh;
 }
 
 header {
@@ -31,13 +33,8 @@ header h1 {
     margin-left: 15px;
 }
 
-header a {
-    background-color: #849324;
-    border: solid 1px #F4D6CC;
-    border-radius: 10px;
-    padding: 7px;
-    margin-right: 10px;
-    text-decoration: none;
+#authorize {
+    margin-right: 15px;
 }
 
 aside {
@@ -67,6 +64,27 @@ main {
     grid-area: main;
     margin-top: 18px;
     padding: 20px;
+}
+
+.player {
+    grid-area: player;
+    background-color: #7CA5B8;
+    position: fixed;
+    height: 80px;
+    width: 100vw;
+    margin-top: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.controls {
+    margin-left: 15px;
+    width: 350px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
 }
 
 #library-albums-grid {
