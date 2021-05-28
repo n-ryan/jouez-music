@@ -16,3 +16,12 @@ const getGeniusView = (ev) => {
     console.log("loading genius view");
 };
 
+const getWelcomeView = () => {
+    console.log('showing the welcome view');
+};
+
+if (!isSignedIn) {
+    getWelcomeView();
+} else {
+    getLibraryView();
+};

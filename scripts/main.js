@@ -72,7 +72,6 @@ const playAlbum = (ev) => {
 }
 
 authButton.addEventListener('click', authorizeUser);
-document.querySelector('#get-albums').addEventListener('click', getLibraryAlbums);
 
 
 
