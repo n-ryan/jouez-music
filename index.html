@@ -19,15 +19,15 @@
 
         <aside>
             <ul>
-                <li>
+                <li id="library-nav" onclick="getLibraryView(event)">
                     <i class="bi bi-music-note-list"></i>
                     <a>Your Library</a>
                 </li>
-                <li>
+                <li id="search-nav" onclick="getSearchView(event)">
                     <i class="bi bi-search"></i>
                     <a>Search</a>
                 </li>
-                <li>
+                <li id="genius-nav" onclick="getGeniusView(event)">
                     <i class="bi bi-stars"></i>
                     <a>Playlist Genius</a>
                 </li>
@@ -35,9 +35,7 @@
         </aside>
 
         <main>
-            <h1>Your Library</h1>
-            <button type="button" class="btn btn-primary" id="get-albums">Get Library Albums</button>
-            <div id="library-albums-grid"></div>
+            
         </main>
 
         <div class="player">
@@ -51,6 +49,7 @@
         </div>
 
         <script src="scripts/main.js"></script>
+        <script src="scripts/appViews.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     </body>
 </html>
