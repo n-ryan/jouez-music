@@ -65,8 +65,11 @@ const getLibraryAlbums = () => {
 };
 
 const search = (ev) => {
-    music.api.search('Beyonce', { types: 'albums,artists,playlists,songs', limit: 25, offset: 0 }).then(function(results) {
+    const searchTerm = document.querySelector('#music-search').value;
+    const searchResultView = document.querySelector('.search-results');
+    music.api.search(searchTerm, { types: 'albums,artists,playlists,songs', limit: 25, offset: 0 }).then(function(results) {
         console.log(results);
+        searchResultView.innerHTML = results;
     });
 }
 

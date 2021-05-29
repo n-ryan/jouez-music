@@ -16,10 +16,11 @@ const getSearchView = (ev) => {
             <div class="form-outline">
                 <input type="search" id="music-search" class="form-control" placeholder="Search for music here..." />
             </div>
-            <button type="button" class="btn btn-primary">
+            <button type="button" class="btn btn-primary" onclick="search(event)">
                 <i class="bi bi-search"></i>
             </button>
-        </div>`;
+        </div>
+        <div class="search-results"></div>`;
 };
 
 const getGeniusView = (ev) => {
