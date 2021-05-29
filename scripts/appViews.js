@@ -4,6 +4,20 @@ const getLibraryView = (ev) => {
     console.log("loading library view");
     mainView.innerHTML = `
         <h1>Your Library</h1>
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Albums</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Artists</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Songs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Playlists</a>
+            </li>
+        </ul>
         <div id="library-albums-grid"></div>`;
     getLibraryAlbums();
 };
@@ -20,7 +34,14 @@ const getSearchView = (ev) => {
                 <i class="bi bi-search"></i>
             </button>
         </div>
-        <div class="search-results"></div>`;
+        <div class="search-results">
+            <div class="song-results"><h3>Songs</h3></div>
+            <div class="album-results"><h3>Albums</h3></div>
+            <div class="artist-results"><h3>Artists</h3></div>
+            <div class="playlist-results"><h3>Playlists</h3></div>
+            <div class="music-video-results"><h3>Music Videos</h3></div>
+        </div>`;
+    document.querySelector('.search-results').style.display = "none";
 };
 
 const getGeniusView = (ev) => {
@@ -31,6 +52,10 @@ const getGeniusView = (ev) => {
 
 const getWelcomeView = () => {
     console.log('showing the welcome view');
+    mainView.innerHTML = `
+        <h1>Welcome to Jouez Music!</h1>
+        <h3>Jouez is a better way to enjoy your Apple Music library.</h3>
+        <h3>To get started, log in to your Apple ID using the button above.</h3>`;
 };
 
 if (!isSignedIn) {

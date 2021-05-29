@@ -104,6 +104,7 @@ main {
 #library-albums-grid {
     display: flex;
     flex-wrap: wrap;
+    margin-top: 10px;
 }
 
 #album-info {
@@ -113,4 +114,28 @@ main {
 #album-art {
     height: 200px;
     width: 200px;
+    border-radius: 8px;
+    padding: 5px;
 }
+
+#album-art:hover {
+    opacity: 80%;
+}
+
+.input-group {
+    margin-bottom: 10px;
+}
+
+/* .song-results {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.song-result {
+    margin-block: 5px;
+    width: 200px;
+    background-color: gray;
+    border-radius: 5px;
+} */

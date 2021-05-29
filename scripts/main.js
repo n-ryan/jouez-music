@@ -31,10 +31,12 @@ const authorizeUser = () => {
         });
         isSignedIn = true;
         authButton.innerHTML = "Sign Out of Apple Music";
+        window.location.reload();
     } else {
         music.unauthorize();
         isSignedIn = false;
         authButton.innerHTML = "Sign In to Apple Music";
+        window.location.reload();
     }
 };
 
@@ -68,8 +70,38 @@ const search = (ev) => {
     const searchTerm = document.querySelector('#music-search').value;
     const searchResultView = document.querySelector('.search-results');
     music.api.search(searchTerm, { types: 'albums,artists,playlists,songs', limit: 25, offset: 0 }).then(function(results) {
-        console.log(results);
-        searchResultView.innerHTML = results;
+        const songResults = results.songs;
+        const albumResults = results.albums;
+        const artistResults = results.artists;
+        const playlistResults = results.playlists;
+        const videoResults = results['music-videos'];
+        
+        for (const song of songResults) {
+            document.querySelector('.song-results').innerHTML += `
+                <div class="song-result" data-item-id=${song.id}>${song.name} - ${song.artistName} - ${song.albumName}</div>`
+        }
+
+        for (const album of albumResults) {
+            document.querySelector('.album-results').innerHTML += `
+                <div class="album-result" data-item-id=${album.id}>${album.name} - ${album.artistName}</div>`
+        }
+
+        for (const artist of artistResults) {
+            document.querySelector('.artist-results').innerHTML += `
+                <div class="artist-result" data-item-id=${artist.id}>${artist.name}</div>`
+        }
+
+        for (const playlist of playlistResults) {
+            document.querySelector('.playlist-results').innerHTML += `
+                <div class="playlist-result" data-item-id=${playlist.id}>${playlist.name}</div>`
+        }
+
+        for (const video of videoResults) {
+            document.querySelector('.music-video-results').innerHTML += `
+                <div class="music-video-result" data-item-id=${video.id}>${video.name} - ${video.artistName} - ${video.albumName}</div>`
+        }
+        
+        searchResultView.style.display = "initial";
     });
 }
 
