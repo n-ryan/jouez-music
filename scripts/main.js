@@ -41,10 +41,10 @@ const authorizeUser = () => {
 const getLibraryAlbums = () => {
     music.api.library.albums({ limit: 100, offset: 0 }).then(function(results) {
         let libraryAlbums = results;
-        console.log(libraryAlbums);
+        // console.log(libraryAlbums);
         for (album of libraryAlbums) {
             let albumArt = MusicKit.formatArtworkURL(album.artwork, 200, 200);
-            console.log(albumArt);
+            // console.log(albumArt);
             document.querySelector('#library-albums-grid').innerHTML += `
             <div class="album">
                 <div id="album-info">${album.artistName} - ${album.name}</div>
@@ -63,6 +63,12 @@ const getLibraryAlbums = () => {
         }
     });
 };
+
+const search = (ev) => {
+    music.api.search('Beyonce', { types: 'albums,artists,playlists,songs', limit: 25, offset: 0 }).then(function(results) {
+        console.log(results);
+    });
+}
 
 const playAlbum = (ev) => {
     console.log(ev);
