@@ -41,22 +41,111 @@ const authorizeUser = () => {
 };
 
 const getLibraryAlbums = () => {
+    document.querySelector('#library-view').innerHTML = "";
     music.api.library.albums({ limit: 100, offset: 0 }).then(function(results) {
         let libraryAlbums = results;
         // console.log(libraryAlbums);
         for (album of libraryAlbums) {
             let albumArt = MusicKit.formatArtworkURL(album.artwork, 200, 200);
             // console.log(albumArt);
-            document.querySelector('.library-albums-grid').innerHTML += `
+            document.querySelector('#library-view').innerHTML += `
             <div class="album">
                 <div id="album-info">${album.artistName} - ${album.name}</div>
                 <img id="album-art" src="${albumArt}" data-item-id="${album.id}"></img>
             </div>`;
-            const albumClass = document.querySelectorAll('.album');
-            for (item of albumClass) {
-                item.addEventListener('click', playAlbum);
-            };
         }
+        const albumClass = document.querySelectorAll('.album');
+        for (item of albumClass) {
+            item.addEventListener('click', playAlbum);
+        };
+    }).catch(function(error) {
+        if (error == "ACCESS_DENIED: 403") {
+            window.alert("You must be logged in to access your library.");
+        } else {
+            window.alert(error);
+        }
+    });
+};
+
+const getLibraryArtists = () => {
+    document.querySelector('#library-view').innerHTML = "";
+    music.api.library.artists({ limit: 100, offset: 0 }).then(function(results) {
+        let libraryArtists = results;
+        console.log(libraryArtists);
+        for (artist of libraryArtists) {
+            document.querySelector('#library-view').innerHTML += `
+            <div class="artist" data-item-id="${artist.id}">
+                ${artist.name}
+            </div>`;
+        }
+        // const artistClass = document.querySelectorAll('.artist');
+        // for (item of artistClass) {
+        //     item.addEventListener('click', getArtistInfo);
+        // };
+    }).catch(function(error) {
+        if (error == "ACCESS_DENIED: 403") {
+            window.alert("You must be logged in to access your library.");
+        } else {
+            window.alert(error);
+        }
+    });
+};
+
+const getLibrarySongs = () => {
+    document.querySelector('#library-view').innerHTML = "";
+    music.api.library.songs({ limit: 100, offset: 0 }).then(function(results) {
+        let librarySongs = results;
+        console.log(librarySongs);
+        for (song of librarySongs) {
+            document.querySelector('#library-view').innerHTML += `
+            <div class="song" data-item-id="${song.id}">
+                <div class="song-info">
+                    <div class="song-info-name">${song.name}</div>
+                    <div>${song.artistName}</div>
+                    <div>${song.albumName}</div>
+                </div>
+                <div class="song-controls">
+                    <i class="bi bi-play-fill" onclick="playSong(event)" data-item-id="${song.id}"></i>
+                    <i class="bi bi-arrow-right" onclick="playSongNext(event)" data-item-id="${song.id}"></i>
+                    <i class="bi bi-arrow-return-right" onclick="playSongLast(event)" data-item-id="${song.id}"></i>
+                </div>
+            </div>`;
+        }
+    }).catch(function(error) {
+        if (error == "ACCESS_DENIED: 403") {
+            window.alert("You must be logged in to access your library.");
+        } else {
+            window.alert(error);
+        }
+    });
+};
+
+const getLibraryPlaylists = () => {
+    document.querySelector('#library-view').innerHTML = "";
+    music.api.library.playlists({ limit: 100, offset: 0 }).then(function(results) {
+        let libraryPlaylists = results;
+        console.log(libraryPlaylists);
+        for (playlist of libraryPlaylists) {
+            if (playlist.artwork) {
+                let playlistArt = MusicKit.formatArtworkURL(playlist.artwork, 200, 200);
+                document.querySelector('#library-view').innerHTML += `
+                <div class="playlist">
+                    <div id="playlist-info">${playlist.name}</div>
+                    <img id="playlist-art" src="${playlistArt}" data-item-id="${playlist.id}"></img>
+                </div>`;
+            } else {
+                document.querySelector('#library-view').innerHTML += `
+                <div class="playlist">
+                    <div id="playlist-info-no-art">${playlist.name}</div>
+                    <img id="playlist-art" src="images/jouez-icon.png" data-item-id="${playlist.id}" style="display: none;"></img>
+                </div>`;
+            }
+            
+        }
+        const playlistClass = document.querySelectorAll('.playlist');
+        for (item of playlistClass) {
+            item.addEventListener('click', playPlaylist);
+        };
     }).catch(function(error) {
         if (error == "ACCESS_DENIED: 403") {
             window.alert("You must be logged in to access your library.");
@@ -105,9 +194,47 @@ const search = (ev) => {
     });
 }
 
+// const getArtistInfo = (ev) => {
+//     const artistID = ev.currentTarget.dataset.itemId;
+//     const artist = music.api.artist(artistID);
+//     const artistURL = artist.url;
+//     console.log(artist, artistURL);
+//     window.open(artistURL, 'blank');
+// }
+
 const playAlbum = (ev) => {
     console.log(ev);
     music.setQueue({ album: ev.target.dataset.itemId }).then(function(queue) {
+        console.log(queue);
+        music.player.play();
+    });
+}
+
+const playSong = (ev) => {
+    console.log(ev);
+    music.setQueue({ song: ev.target.dataset.itemId }).then(function(queue) {
+        console.log(queue);
+        music.player.play();
+    });
+}
+
+const playSongNext = (ev) => {
+    console.log(ev);
+    music.playNext({ song: ev.target.dataset.itemId }).then(function(queue) {
+        console.log(queue);
+    });
+}
+
+const playSongLast = (ev) => {
+    console.log(ev);
+    music.playLater({ song: ev.target.dataset.itemId }).then(function(queue) {
+        console.log(queue);
+    });
+}
+
+const playPlaylist = (ev) => {
+    console.log(ev);
+    music.setQueue({ playlist: ev.target.dataset.itemId }).then(function(queue) {
         console.log(queue);
         music.player.play();
     });
@@ -123,7 +250,7 @@ const updateNowPlaying = (ev) => {
 
     nowPlayingTrack.innerHTML = newMediaItem.title;
     nowPlayingArtist.innerHTML = newMediaItem.artistName;
-    nowPlayingAlbum.innerHTML = newMediaItem.container.attributes.name;
+    nowPlayingAlbum.innerHTML = newMediaItem.albumName;
     nowPlayingArtwork.src = MusicKit.formatArtworkURL(newMediaItem.artwork, 60, 60);
 }
 
