@@ -56,7 +56,14 @@
                 <button type="button" class="btn btn-primary" data-apple-music-play>Play</button>
                 <button type="button" class="btn btn-primary" data-apple-music-skip-to-next-item>Skip Next</button>
             </div>
-            <h3 id="now-playing" data-apple-music-now-playing></h3>
+            <div id="now-playing">
+                <div id="now-playing-info">
+                    <div id="now-playing-track">Not Playing</div>
+                    <div id="now-playing-artist"></div>
+                    <div id="now-playing-album"></div>
+                </div>
+                <img id="now-playing-artwork" src="images/not-playing.png">
+            </div>
         </div>
 
         <script src="scripts/main.js"></script>

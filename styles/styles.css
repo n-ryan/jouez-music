@@ -78,6 +78,7 @@ main {
     grid-area: main;
     margin-top: 18px;
     padding: 20px;
+    padding-bottom: 100px;
 }
 
 .player {
@@ -124,6 +125,23 @@ main {
 
 .input-group {
     margin-bottom: 10px;
+}
+
+#now-playing {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#now-playing-info {
+    color: var(--background);
+}
+
+#now-playing-artwork {
+    width: 60px;
+    height: 60px;
+    margin-inline: 10px;
+    border-radius: 3px;
 }
 
 /* .song-results {
