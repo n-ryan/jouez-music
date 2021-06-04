@@ -101,7 +101,7 @@ const search = (ev) => {
                 <div class="music-video-result" data-item-id=${video.id}>${video.name} - ${video.artistName} - ${video.albumName}</div>`
         }
         
-        searchResultView.style.display = "initial";
+        searchResultView.style.display = "grid";
     });
 }
 

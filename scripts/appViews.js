@@ -35,6 +35,7 @@ const getSearchView = (ev) => {
             </button>
         </div>
         <div class="search-results">
+            <div class="top-results"><h3>Top Results</h3></div>
             <div class="song-results"><h3>Songs</h3></div>
             <div class="album-results"><h3>Albums</h3></div>
             <div class="artist-results"><h3>Artists</h3></div>

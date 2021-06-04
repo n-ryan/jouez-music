@@ -165,3 +165,39 @@ main {
     background-color: gray;
     border-radius: 5px;
 } */
+
+.search-results {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 300px 300px 300px 300px 300px;
+    grid-template-areas:
+        "top top"
+        "songs artists"
+        "albums albums"
+        "playlists playlists"
+        "videos videos";
+}
+
+.top-results {
+    grid-area: top;
+}
+
+.song-results {
+    grid-area: songs;
+}
+
+.album-results {
+    grid-area: albums;
+}
+
+.artist-results {
+    grid-area: artists;
+}
+
+.playlist-results {
+    grid-area: playlists;
+}
+
+.music-video-results {
+    grid-area: videos;
+}
