@@ -86,9 +86,9 @@ const search = (ev) => {
                 <div class="album-result" data-item-id=${album.id}>${album.name} - ${album.artistName}</div>`
         }
 
-        for (const artist of artistResults) {
+        for (const artist of artistResults.slice(0, 5)) {
             document.querySelector('.artist-results').innerHTML += `
-                <div class="artist-result" data-item-id=${artist.id}>${artist.name}</div>`
+                <div class="artist-result" data-item-id=${artist.id}>${artist.name}<br><a href="${artist.url}" target="blank">View on Apple Music</a></div>`
         }
 
         for (const playlist of playlistResults) {

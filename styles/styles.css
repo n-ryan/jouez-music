@@ -194,6 +194,14 @@ main {
     grid-area: artists;
 }
 
+.artist-result {
+    margin-block: 5px;
+}
+
+.artist-result a {
+    font-size: 0.8em;
+}
+
 .playlist-results {
     grid-area: playlists;
 }
