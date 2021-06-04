@@ -135,6 +135,14 @@ main {
 
 #now-playing-info {
     color: var(--background);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-align: right;
+}
+
+#now-playing-artist, #now-playing-album {
+    font-size: 0.8em;
 }
 
 #now-playing-artwork {

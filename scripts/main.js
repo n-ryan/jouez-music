@@ -112,6 +112,22 @@ const playAlbum = (ev) => {
     });
 }
 
+const updateNowPlaying = (ev) => {
+    console.log(ev);
+    const newMediaItem = ev.item;
+    const nowPlayingTrack = document.querySelector('#now-playing-track');
+    const nowPlayingArtist = document.querySelector('#now-playing-artist');
+    const nowPlayingAlbum = document.querySelector('#now-playing-album');
+    const nowPlayingArtwork = document.querySelector('#now-playing-artwork');
+
+    nowPlayingTrack.innerHTML = newMediaItem.title;
+    nowPlayingArtist.innerHTML = newMediaItem.artistName;
+    nowPlayingAlbum.innerHTML = newMediaItem.container.attributes.name;
+    nowPlayingArtwork.src = MusicKit.formatArtworkURL(newMediaItem.artwork, 60, 60);
+}
+
+music.addEventListener(MusicKit.Events.mediaItemDidChange, updateNowPlaying);
+
 authButton.addEventListener('click', authorizeUser);
 
 
