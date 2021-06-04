@@ -5,20 +5,20 @@ const getLibraryView = (ev) => {
     mainView.innerHTML = `
         <h1>Your Library</h1>
         <ul class="nav nav-pills">
-            <li class="nav-item">
+            <li class="nav-item" id="albums-tab">
                 <a class="nav-link active" aria-current="page" href="#">Albums</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="artists-tab">
                 <a class="nav-link" href="#">Artists</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="songs-tab">
                 <a class="nav-link" href="#">Songs</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="playlists-tab">
                 <a class="nav-link" href="#">Playlists</a>
             </li>
         </ul>
-        <div id="library-albums-grid"></div>`;
+        <div class="library-albums-grid" id="library-view"></div>`;
     getLibraryAlbums();
 };
 

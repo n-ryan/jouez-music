@@ -47,7 +47,7 @@ const getLibraryAlbums = () => {
         for (album of libraryAlbums) {
             let albumArt = MusicKit.formatArtworkURL(album.artwork, 200, 200);
             // console.log(albumArt);
-            document.querySelector('#library-albums-grid').innerHTML += `
+            document.querySelector('.library-albums-grid').innerHTML += `
             <div class="album">
                 <div id="album-info">${album.artistName} - ${album.name}</div>
                 <img id="album-art" src="${albumArt}" data-item-id="${album.id}"></img>

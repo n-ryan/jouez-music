@@ -102,10 +102,14 @@ main {
     justify-content: space-around;
 }
 
-#library-albums-grid {
-    display: flex;
-    flex-wrap: wrap;
+#library-view {
     margin-top: 10px;
+}
+
+.library-albums-grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 #album-info {
@@ -122,6 +126,12 @@ main {
 #album-art:hover {
     opacity: 80%;
 }
+
+.library-artists
+
+.library-songs
+
+.library-playlists
 
 .input-group {
     margin-bottom: 10px;
