@@ -39,12 +39,11 @@ const getSearchView = (ev) => {
             </button>
         </div>
         <div class="search-results">
-            <div class="top-results"><h3>Top Results</h3></div>
             <div class="song-results"><h3>Songs</h3></div>
-            <div class="album-results"><h3>Albums</h3></div>
-            <div class="artist-results"><h3>Artists</h3></div>
-            <div class="playlist-results"><h3>Playlists</h3></div>
-            <div class="music-video-results"><h3>Music Videos</h3></div>
+            <div class="album-results"><h3>Albums</h3><div class="album-flex"></div></div>
+            <div class="artist-results"><h3>Artists</h3><div class="artist-flex"></div></div>
+            <div class="playlist-results"><h3>Playlists</h3><div class="playlist-flex"></div></div>
+            <div class="music-video-results"><h3>Music Videos</h3><div class="music-video-flex"></div></div>
         </div>`;
     document.querySelector('.search-results').style.display = "none";
 };

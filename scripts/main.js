@@ -165,29 +165,59 @@ const search = (ev) => {
         const playlistResults = results.playlists;
         const videoResults = results['music-videos'];
         
-        for (const song of songResults) {
+        for (const song of songResults.slice(0, 3)) {
             document.querySelector('.song-results').innerHTML += `
-                <div class="song-result" data-item-id=${song.id}>${song.name} - ${song.artistName} - ${song.albumName}</div>`
+                <div class="song-result song" data-item-id="${song.id}">
+                    <div class="song-info">
+                        <div class="song-info-name">${song.name}</div>
+                        <div>${song.artistName}</div>
+                        <div>${song.albumName}</div>
+                    </div>
+                    <div class="song-controls">
+                        <i class="bi bi-play-fill" onclick="playSong(event)" data-item-id="${song.id}"></i>
+                        <i class="bi bi-arrow-right" onclick="playSongNext(event)" data-item-id="${song.id}"></i>
+                        <i class="bi bi-arrow-return-right" onclick="playSongLast(event)" data-item-id="${song.id}"></i>
+                    </div>
+                </div>`
         }
 
-        for (const album of albumResults) {
-            document.querySelector('.album-results').innerHTML += `
-                <div class="album-result" data-item-id=${album.id}>${album.name} - ${album.artistName}</div>`
+        for (const album of albumResults.slice(0, 5)) {
+            let albumArt = MusicKit.formatArtworkURL(album.artwork, 200, 200);
+            document.querySelector('.album-flex').innerHTML += `
+                <div class="album" onclick="playAlbum(event)">
+                    <div id="album-info">${album.artistName} - ${album.name}</div>
+                    <img id="album-art" src="${albumArt}" data-item-id="${album.id}"></img>
+                </div>`;
         }
 
         for (const artist of artistResults.slice(0, 5)) {
-            document.querySelector('.artist-results').innerHTML += `
+            document.querySelector('.artist-flex').innerHTML += `
                 <div class="artist-result" data-item-id=${artist.id}>${artist.name}<br><a href="${artist.url}" target="blank">View on Apple Music</a></div>`
         }
 
-        for (const playlist of playlistResults) {
-            document.querySelector('.playlist-results').innerHTML += `
-                <div class="playlist-result" data-item-id=${playlist.id}>${playlist.name}</div>`
+        for (const playlist of playlistResults.slice(0, 5)) {
+            if (playlist.artwork) {
+                let playlistArt = MusicKit.formatArtworkURL(playlist.artwork, 200, 200);
+                document.querySelector('.playlist-flex').innerHTML += `
+                <div class="playlist" onclick="playPlaylist(event)">
+                    <div id="playlist-info">${playlist.name}</div>
+                    <img id="playlist-art" src="${playlistArt}" data-item-id="${playlist.id}"></img>
+                </div>`;
+            } else {
+                document.querySelector('.playlist-flex').innerHTML += `
+                <div class="playlist" onclick="playPlaylist(event)">
+                    <div id="playlist-info-no-art">${playlist.name}</div>
+                    <img id="playlist-art" src="images/jouez-icon.png" data-item-id="${playlist.id}" style="display: none;"></img>
+                </div>`;
+            }
         }
 
-        for (const video of videoResults) {
-            document.querySelector('.music-video-results').innerHTML += `
-                <div class="music-video-result" data-item-id=${video.id}>${video.name} - ${video.artistName} - ${video.albumName}</div>`
+        for (const video of videoResults.slice(0, 3)) {
+            document.querySelector('.music-video-flex').innerHTML += `
+                <div class="music-video-result" data-item-id=${video.id}>
+                    <img src="${MusicKit.formatArtworkURL(video.artwork, 300, 200)}">
+                    <div class="music-video-info">${video.name} - ${video.artistName}</div>
+                </div>`
         }
         
         searchResultView.style.display = "grid";
