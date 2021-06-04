@@ -109,6 +109,7 @@ const playAlbum = (ev) => {
     console.log(ev);
     music.setQueue({ album: ev.target.dataset.itemId }).then(function(queue) {
         console.log(queue);
+        music.player.play();
     });
 }
 
