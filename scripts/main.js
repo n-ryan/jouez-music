@@ -75,6 +75,7 @@ const getLibraryArtists = () => {
     document.querySelector('#library-view').innerHTML = "<h3>Getting your artists now...</h3>";
     document.querySelector('#load-more').style.display = "none";
     music.api.library.artists({ limit: 100, offset: 0 }).then(function(results) {
+        artistsDisplayed = 0;
         let libraryArtists = results;
         console.log(libraryArtists);
         document.querySelector('#library-view').innerHTML = "";
@@ -83,6 +84,7 @@ const getLibraryArtists = () => {
             <div class="artist" data-item-id="${artist.id}">
                 ${artist.name}
             </div>`;
+            artistsDisplayed += 1;
         }
         document.querySelector('#load-more').style.display = "inherit";
     }).catch(function(error) {
@@ -169,14 +171,19 @@ const loadMore = (ev) => {
     if (libraryView.classList.contains('library-albums-grid')) {
         music.api.library.albums({ limit: 100, offset: albumsDisplayed }).then(function(results) {
             let libraryAlbums = results;
-            for (album of libraryAlbums) {
-                let albumArt = MusicKit.formatArtworkURL(album.artwork, 200, 200);
-                document.querySelector('#library-view').innerHTML += `
-                <div class="album" onclick="playAlbum(event)">
-                    <div id="album-info">${album.artistName} - ${album.name}</div>
-                    <img id="album-art" src="${albumArt}" data-item-id="${album.id}"></img>
-                </div>`;
-                albumsDisplayed += 1;
+            if (libraryAlbums.length > 0) {
+                for (album of libraryAlbums) {
+                    let albumArt = MusicKit.formatArtworkURL(album.artwork, 200, 200);
+                    document.querySelector('#library-view').innerHTML += `
+                    <div class="album" onclick="playAlbum(event)">
+                        <div id="album-info">${album.artistName} - ${album.name}</div>
+                        <img id="album-art" src="${albumArt}" data-item-id="${album.id}"></img>
+                    </div>`;
+                    albumsDisplayed += 1;
+                }
+            } else {
+                document.querySelector('#load-more').style.display = "none";
+                window.alert("All albums have been displayed.");
             }
         }).catch(function(error) {
             if (error == "ACCESS_DENIED: 403") {
@@ -186,7 +193,28 @@ const loadMore = (ev) => {
             }
         });
     } else if (libraryView.classList.contains('library-artists')) {
-        // get more artists
+        music.api.library.artists({ limit: 100, offset: artistsDisplayed }).then(function(results) {
+            let libraryArtists = results;
+            console.log(libraryArtists);
+            if (libraryArtists.length > 0) {
+                for (artist of libraryArtists) {
+                    document.querySelector('#library-view').innerHTML += `
+                    <div class="artist" data-item-id="${artist.id}">
+                        ${artist.name}
+                    </div>`;
+                    artistsDisplayed += 1;
+                }
+            } else {
+                document.querySelector('#load-more').style.display = "none";
+                window.alert("All artists have been displayed.");
+            }
+        }).catch(function(error) {
+            if (error == "ACCESS_DENIED: 403") {
+                window.alert("You must be logged in to access your library.");
+            } else {
+                window.alert(error);
+            }
+        });
     } else if (libraryView.classList.contains('library-songs')) {
         // get more songs
     } else if (libraryView.classList.contains('library-playlists')) {
