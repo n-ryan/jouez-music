@@ -134,6 +134,7 @@ const getLibraryPlaylists = () => {
     document.querySelector('#library-view').innerHTML = "<h3>Getting your playlists now...</h3>";
     document.querySelector('#load-more').style.display = "none";
     music.api.library.playlists({ limit: 100, offset: 0 }).then(function(results) {
+        playlistsDisplayed = 0;
         let libraryPlaylists = results;
         console.log(libraryPlaylists);
         document.querySelector('#library-view').innerHTML = "";
@@ -141,23 +142,19 @@ const getLibraryPlaylists = () => {
             if (playlist.artwork) {
                 let playlistArt = MusicKit.formatArtworkURL(playlist.artwork, 200, 200);
                 document.querySelector('#library-view').innerHTML += `
-                <div class="playlist">
+                <div class="playlist" onclick="playPlaylist(event)">
                     <div id="playlist-info">${playlist.name}</div>
                     <img id="playlist-art" src="${playlistArt}" data-item-id="${playlist.id}"></img>
                 </div>`;
             } else {
                 document.querySelector('#library-view').innerHTML += `
-                <div class="playlist">
+                <div class="playlist" onclick="playPlaylist(event)">
                     <div id="playlist-info-no-art">${playlist.name}</div>
                     <img id="playlist-art" src="images/jouez-icon.png" data-item-id="${playlist.id}" style="display: none;"></img>
                 </div>`;
             }
-            
+            playlistsDisplayed += 1;
         }
-        const playlistClass = document.querySelectorAll('.playlist');
-        for (item of playlistClass) {
-            item.addEventListener('click', playPlaylist);
-        };
         document.querySelector('#load-more').style.display = "inherit";
     }).catch(function(error) {
         if (error == "ACCESS_DENIED: 403") {
@@ -250,7 +247,38 @@ const loadMore = (ev) => {
             }
         });
     } else if (libraryView.classList.contains('library-playlists')) {
-        // get more playlists
+        music.api.library.playlists({ limit: 100, offset: playlistsDisplayed }).then(function(results) {
+            let libraryPlaylists = results;
+            console.log(libraryPlaylists);
+            if (libraryPlaylists.length > 0) {
+                for (playlist of libraryPlaylists) {
+                    if (playlist.artwork) {
+                        let playlistArt = MusicKit.formatArtworkURL(playlist.artwork, 200, 200);
+                        document.querySelector('#library-view').innerHTML += `
+                        <div class="playlist" onclick="playPlaylist(event)">
+                            <div id="playlist-info">${playlist.name}</div>
+                            <img id="playlist-art" src="${playlistArt}" data-item-id="${playlist.id}"></img>
+                        </div>`;
+                    } else {
+                        document.querySelector('#library-view').innerHTML += `
+                        <div class="playlist" onclick="playPlaylist(event)">
+                            <div id="playlist-info-no-art">${playlist.name}</div>
+                            <img id="playlist-art" src="images/jouez-icon.png" data-item-id="${playlist.id}" style="display: none;"></img>
+                        </div>`;
+                    }
+                    playlistsDisplayed += 1;
+                }
+            } else {
+                document.querySelector('#load-more').style.display = "none";
+                window.alert("All playlists have been displayed.");
+            }
+        }).catch(function(error) {
+            if (error == "ACCESS_DENIED: 403") {
+                window.alert("You must be logged in to access your library.");
+            } else {
+                window.alert(error);
+            }
+        });
     };
 };
 
