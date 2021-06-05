@@ -18,7 +18,8 @@ const getLibraryView = (ev) => {
                 <a class="nav-link" id="playlists-tab" href="#">Playlists</a>
             </li>
         </ul>
-        <div class="library-albums-grid" id="library-view"></div>`;
+        <div class="library-albums-grid" id="library-view"></div>
+        <button type="button" class="btn btn-primary" id="load-more" onclick="loadMore(event)" style="display: none;">Load more...</button>`;
     getLibraryAlbums();
     document.querySelector('#albums-tab').addEventListener('click', showAlbumsView);
     document.querySelector('#artists-tab').addEventListener('click', showArtistsView);
