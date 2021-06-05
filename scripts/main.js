@@ -46,11 +46,12 @@ const authorizeUser = () => {
 };
 
 const getLibraryAlbums = () => {
-    document.querySelector('#library-view').innerHTML = "";
+    document.querySelector('#library-view').innerHTML = "<h3>Getting your albums now...</h3>";
     document.querySelector('#load-more').style.display = "none";
     music.api.library.albums({ limit: 100, offset: 0 }).then(function(results) {
         albumsDisplayed = 0;
         let libraryAlbums = results;
+        document.querySelector('#library-view').innerHTML = "";
         for (album of libraryAlbums) {
             let albumArt = MusicKit.formatArtworkURL(album.artwork, 200, 200);
             document.querySelector('#library-view').innerHTML += `
@@ -71,21 +72,18 @@ const getLibraryAlbums = () => {
 };
 
 const getLibraryArtists = () => {
-    document.querySelector('#library-view').innerHTML = "";
+    document.querySelector('#library-view').innerHTML = "<h3>Getting your artists now...</h3>";
     document.querySelector('#load-more').style.display = "none";
     music.api.library.artists({ limit: 100, offset: 0 }).then(function(results) {
         let libraryArtists = results;
         console.log(libraryArtists);
+        document.querySelector('#library-view').innerHTML = "";
         for (artist of libraryArtists) {
             document.querySelector('#library-view').innerHTML += `
             <div class="artist" data-item-id="${artist.id}">
                 ${artist.name}
             </div>`;
         }
-        // const artistClass = document.querySelectorAll('.artist');
-        // for (item of artistClass) {
-        //     item.addEventListener('click', getArtistInfo);
-        // };
         document.querySelector('#load-more').style.display = "inherit";
     }).catch(function(error) {
         if (error == "ACCESS_DENIED: 403") {
@@ -97,11 +95,12 @@ const getLibraryArtists = () => {
 };
 
 const getLibrarySongs = () => {
-    document.querySelector('#library-view').innerHTML = "";
+    document.querySelector('#library-view').innerHTML = "<h3>Getting your songs now...</h3>";
     document.querySelector('#load-more').style.display = "none";
     music.api.library.songs({ limit: 100, offset: 0 }).then(function(results) {
         let librarySongs = results;
         console.log(librarySongs);
+        document.querySelector('#library-view').innerHTML = "";
         for (song of librarySongs) {
             document.querySelector('#library-view').innerHTML += `
             <div class="song" data-item-id="${song.id}">
@@ -128,11 +127,12 @@ const getLibrarySongs = () => {
 };
 
 const getLibraryPlaylists = () => {
-    document.querySelector('#library-view').innerHTML = "";
+    document.querySelector('#library-view').innerHTML = "<h3>Getting your playlists now...</h3>";
     document.querySelector('#load-more').style.display = "none";
     music.api.library.playlists({ limit: 100, offset: 0 }).then(function(results) {
         let libraryPlaylists = results;
         console.log(libraryPlaylists);
+        document.querySelector('#library-view').innerHTML = "";
         for (playlist of libraryPlaylists) {
             if (playlist.artwork) {
                 let playlistArt = MusicKit.formatArtworkURL(playlist.artwork, 200, 200);
