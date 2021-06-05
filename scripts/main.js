@@ -100,6 +100,7 @@ const getLibrarySongs = () => {
     document.querySelector('#library-view').innerHTML = "<h3>Getting your songs now...</h3>";
     document.querySelector('#load-more').style.display = "none";
     music.api.library.songs({ limit: 100, offset: 0 }).then(function(results) {
+        songsDisplayed = 0;
         let librarySongs = results;
         console.log(librarySongs);
         document.querySelector('#library-view').innerHTML = "";
@@ -117,6 +118,7 @@ const getLibrarySongs = () => {
                     <i class="bi bi-arrow-return-right" onclick="playSongLast(event)" data-item-id="${song.id}"></i>
                 </div>
             </div>`;
+            songsDisplayed += 1;
         }
         document.querySelector('#load-more').style.display = "inherit";
     }).catch(function(error) {
@@ -216,7 +218,37 @@ const loadMore = (ev) => {
             }
         });
     } else if (libraryView.classList.contains('library-songs')) {
-        // get more songs
+        music.api.library.songs({ limit: 100, offset: songsDisplayed }).then(function(results) {
+            let librarySongs = results;
+            console.log(librarySongs);
+            if (librarySongs.length > 0) {
+                for (song of librarySongs) {
+                    document.querySelector('#library-view').innerHTML += `
+                    <div class="song" data-item-id="${song.id}">
+                        <div class="song-info">
+                            <div class="song-info-name">${song.name}</div>
+                            <div>${song.artistName}</div>
+                            <div>${song.albumName}</div>
+                        </div>
+                        <div class="song-controls">
+                            <i class="bi bi-play-fill" onclick="playSong(event)" data-item-id="${song.id}"></i>
+                            <i class="bi bi-arrow-right" onclick="playSongNext(event)" data-item-id="${song.id}"></i>
+                            <i class="bi bi-arrow-return-right" onclick="playSongLast(event)" data-item-id="${song.id}"></i>
+                        </div>
+                    </div>`;
+                    songsDisplayed += 1;
+                }
+            } else {
+                document.querySelector('#load-more').style.display = "none";
+                window.alert("All songs have been displayed.");
+            }
+        }).catch(function(error) {
+            if (error == "ACCESS_DENIED: 403") {
+                window.alert("You must be logged in to access your library.");
+            } else {
+                window.alert(error);
+            }
+        });
     } else if (libraryView.classList.contains('library-playlists')) {
         // get more playlists
     };
