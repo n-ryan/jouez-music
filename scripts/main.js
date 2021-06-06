@@ -258,7 +258,43 @@ const loadMore = (ev) => {
 };
 
 const displayQueue = (ev) => {
-    // display queue
+    let queue = music.player.queue;
+    let queueList = queue.items;
+    console.log(queueList);
+    const queueView = document.querySelector('.queue-view');
+
+    if (queue.isEmpty) {
+        queueView.innerHTML = "<h3>Your queue is currently empty. Try playing some music from your library!</h3>";
+    } else {
+        queueView.innerHTML = "";
+        for (const item of queueList.slice(queue.position + 1, queue.length)) {
+            queueView.innerHTML += `
+                <div class="queue-item">
+                    <div class="item-content">
+                        <img class="queue-artwork" src="${MusicKit.formatArtworkURL(item.artwork, 60, 60)}">
+                        <div class="item-info">
+                            <div class="item-title">${item.title}</div>
+                            <div class="item-artist">${item.artistName}</div>
+                        </div>
+                    </div>
+                    <div class="queue-controls">
+                        <i class="bi bi-x-lg" data-item-id="${item.id}" onclick="removeFromQueue(event)"></i>
+                    </div>
+                </div>`
+        }
+    }
+}
+
+const updateQueue = (ev) => {
+    if (document.querySelector('.queue-view') !== null) {
+        displayQueue();
+    }
+}
+
+const removeFromQueue = (ev) => {
+    const itemID = ev.target.dataset.itemId;
+    const itemIndex = music.player.queue.indexForItem(itemID);
+    music.player.queue.remove(itemIndex);
 }
 
 const search = (ev) => {
@@ -391,6 +427,9 @@ const updateNowPlaying = (ev) => {
 }
 
 music.addEventListener(MusicKit.Events.mediaItemDidChange, updateNowPlaying);
+music.addEventListener(MusicKit.Events.mediaItemDidChange, updateQueue);
+music.addEventListener(MusicKit.Events.queueItemsDidChange, updateQueue);
+music.addEventListener(MusicKit.Events.queuePositionDidChange, updateQueue);
 
 // authButton.addEventListener('click', authorizeUser);
 

@@ -54,7 +54,8 @@ const getGeniusView = (ev) => {
 const getQueueView = (ev) => {
     console.log("loading queue view");
     mainView.innerHTML = `
-        <h1>Queue</h1>`;
+        <h1>Queue</h1>
+        <div class="queue-view"><h3>Loading queue...</h3><div>`;
     displayQueue();
 };
 
