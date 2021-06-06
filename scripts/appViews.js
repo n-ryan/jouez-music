@@ -51,6 +51,12 @@ const getGeniusView = (ev) => {
         <h1>Playlist Genius</h1>`;
 };
 
+const getQueueView = (ev) => {
+    console.log("loading queue view");
+    mainView.innerHTML = `
+        <h1>Queue</h1>`;
+};
+
 const getWelcomeView = () => {
     console.log('showing the welcome view');
     mainView.innerHTML = `
