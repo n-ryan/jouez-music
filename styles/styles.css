@@ -151,9 +151,10 @@ main {
     opacity: 80%;
 }
 
-/* .library-songs {
-    
-} */
+.library-songs {
+    display: flex;
+    flex-direction: column;
+}
 
 .song {
     display: flex;
@@ -229,6 +230,45 @@ main {
 
 .input-group {
     margin-bottom: 10px;
+}
+
+.queue-view {
+    display: flex;
+    flex-direction: column;
+}
+
+.queue-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-block: 5px;
+}
+
+.item-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-block: 5px;
+}
+
+.item-info {
+    margin-left: 10px;
+}
+
+.item-artist {
+    font-size: 0.8em;
+}
+
+.queue-artwork {
+    height: 60px;
+    width: 60px;
+    border-radius: 5px;
+}
+
+.bi-x-lg:hover {
+    font-size: 1.1em;
+    opacity: 80%;
 }
 
 #now-playing {
