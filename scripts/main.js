@@ -257,6 +257,10 @@ const loadMore = (ev) => {
     };
 };
 
+const displayQueue = (ev) => {
+    // display queue
+}
+
 const search = (ev) => {
     const searchTerm = document.querySelector('#music-search').value;
     const searchResultView = document.querySelector('.search-results');

@@ -55,6 +55,7 @@ const getQueueView = (ev) => {
     console.log("loading queue view");
     mainView.innerHTML = `
         <h1>Queue</h1>`;
+    displayQueue();
 };
 
 const getWelcomeView = () => {
