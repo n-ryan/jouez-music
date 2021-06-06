@@ -43,10 +43,5 @@ const showPlaylistsView = () => {
     getLibraryPlaylists();
 }
 
-albumsTab.addEventListener('click', showAlbumsView);
-artistsTab.addEventListener('click', showArtistsView);
-songsTab.addEventListener('click', showSongsView);
-playlistsTab.addEventListener('click', showPlaylistsView);
-
 
 

@@ -6,25 +6,21 @@ const getLibraryView = (ev) => {
         <h1>Your Library</h1>
         <ul class="nav nav-pills">
             <li class="nav-item">
-                <a class="nav-link active" id="albums-tab" href="#">Albums</a>
+                <a class="nav-link active" id="albums-tab" onclick="showAlbumsView(event)" href="#">Albums</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="artists-tab" href="#">Artists</a>
+                <a class="nav-link" id="artists-tab" onclick="showArtistsView(event)" href="#">Artists</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="songs-tab" href="#">Songs</a>
+                <a class="nav-link" id="songs-tab" onclick="showSongsView(event)" href="#">Songs</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="playlists-tab" href="#">Playlists</a>
+                <a class="nav-link" id="playlists-tab" onclick="showPlaylistsView(event)" href="#">Playlists</a>
             </li>
         </ul>
         <div class="library-albums-grid" id="library-view"></div>
         <button type="button" class="btn btn-primary" id="load-more" onclick="loadMore(event)" style="display: none;">Load more...</button>`;
     getLibraryAlbums();
-    document.querySelector('#albums-tab').addEventListener('click', showAlbumsView);
-    document.querySelector('#artists-tab').addEventListener('click', showArtistsView);
-    document.querySelector('#songs-tab').addEventListener('click', showSongsView);
-    document.querySelector('#playlists-tab').addEventListener('click', showPlaylistsView);
 };
 
 const getSearchView = (ev) => {
@@ -60,11 +56,22 @@ const getWelcomeView = () => {
     mainView.innerHTML = `
         <h1>Welcome to Jouez Music!</h1>
         <h3>Jouez is a better way to enjoy your Apple Music library.</h3>
-        <h3>To get started, log in to your Apple ID using the button above.</h3>`;
+        <h3>To get started, log in to your Apple ID using the button above.</h3>
+        <button type="button" class="btn btn-primary" id="welcome" style="display: none;" onclick="welcomeIn(event)">Let's get started!</button>`;
 };
 
-if (!isSignedIn) {
+const welcomeIn = (ev) => {
+    window.location.reload();
+}
+
+if (!music.isAuthorized) {
     getWelcomeView();
 } else {
     getLibraryView();
 };
+
+music.addEventListener(MusicKit.Events.authorizationStatusDidChange, function() {
+    if (music.isAuthorized) {
+        document.querySelector('#welcome').style.display = "inherit";
+    }
+});

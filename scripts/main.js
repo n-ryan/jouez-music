@@ -13,37 +13,12 @@ MusicKit.configure({
 
 let music = MusicKit.getInstance();
 
-const authButton = document.querySelector('#authorize');
+// const authButton = document.querySelector('#authorize');
 
 let albumsDisplayed;
 let artistsDisplayed;
 let songsDisplayed;
 let playlistsDisplayed;
-
-let isSignedIn;
-if (music.isAuthorized) {
-    isSignedIn = true;
-    authButton.innerHTML = "Sign Out of Apple Music";
-} else {
-    isSignedIn = false;
-    authButton.innerHTML = "Sign In to Apple Music";
-}
-
-const authorizeUser = () => {
-    if (!isSignedIn) {
-        music.authorize().catch(function(error) {
-            console.log(error);
-        });
-        isSignedIn = true;
-        authButton.innerHTML = "Sign Out of Apple Music";
-        window.location.reload();
-    } else {
-        music.unauthorize();
-        isSignedIn = false;
-        authButton.innerHTML = "Sign In to Apple Music";
-        window.location.reload();
-    }
-};
 
 const getLibraryAlbums = () => {
     document.querySelector('#library-view').innerHTML = "<h3>Getting your albums now...</h3>";
@@ -413,7 +388,7 @@ const updateNowPlaying = (ev) => {
 
 music.addEventListener(MusicKit.Events.mediaItemDidChange, updateNowPlaying);
 
-authButton.addEventListener('click', authorizeUser);
+// authButton.addEventListener('click', authorizeUser);
 
 
 
